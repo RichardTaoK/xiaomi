@@ -206,7 +206,7 @@ img{
 		left: 0;
 		z-index: 2;	
 	}
-	.banner .banner_top li{
+	.banner .banner_top .list{
 		width: 100%;
 		height: 460px;
 		position: absolute;
@@ -214,7 +214,7 @@ img{
 		right: 0;
 		display: none;
 	}
-	.banner .banner_top li.move{
+	.banner .banner_top .list.move{
 		display: block;
 	}
 	.banner .banner_top .move img{
@@ -437,13 +437,38 @@ img{
 	}
 	.banner_bottom .span12 ul li:hover{
 		/* box-shadow:  5px  15px  50px 1px  rgba(0,0,0,0.2); */
-		box-shadow: 0 5px 25px 1px rgba(0,0,0,0.2)
+		box-shadow: 0 5px 25px 1px rgba(0,0,0,0.2);
 	}
 	.banner_bottom .span12 ul li img{
 		width: 100%;
 	}
 	.banner_bottom .span12 ul li.hou{
 		margin-right: 0;
+	}
+	.banner_top .dian{
+		width: 200px;
+		height: 20px;
+		left: auto;
+		position: absolute;
+		right: 0px;
+		bottom: 10px;
+		text-align: center;
+		z-index: 200;
+	}
+	.banner_top .dian .d{
+		width: 10px;
+		height: 10px;
+		border: 2px solid #fff;
+		border-color: rgba(255,255,255,0.3);
+		float: left;
+		border-radius: 50%;
+		background: rgba(0, 0, 0, 0.4);
+		margin-right: 10px;
+		box-sizing: border-box;
+	}
+	.banner_top .dian .active{
+		background: #ccc;
+		border-color: rgba(255,255,255,0.5);
 	}
 /* dan */
 	.dan{
@@ -751,7 +776,7 @@ img{
 		padding: 0;
 	}
 	.many .text .t1{
-		width: 296px;
+		width: 290px;
 		padding: 45px 0 0;
 		margin-bottom: 14px;
 		height: 374px;
@@ -759,7 +784,7 @@ img{
 		position: relative;
 		background: #fff;
 		transition: all 0.2s linear;
-		margin-right: 15px;
+		margin-right: 20px;
 	}
 	.many .text .hou{
 		margin-right: 0;
@@ -785,6 +810,7 @@ img{
 		height: 340px;
 		transition: all 0.5s ease;
 		overflow: hidden;
+		position: relative;
 	}
 	.many .text .xm ul li{
 		width: 296px;
@@ -802,22 +828,25 @@ img{
 		font-weight: 400;
 		line-height: 1.25;
 		color: #333;
+		text-align: center;
 	}
 	.many .text .xm ul li h4 a{
 		color: #000;
 	}
 	.many .text .xm ul li .desc{
 		margin: 0 48px 10px;
-		height: 40px;
+		height: 35px;
 		font-size: 12px;
 		text-align: center;
 		overflow: hidden;
+
 		color: #b0b0b0;
 	}
 	.many .text .xm ul li .price{
 		text-align: center;
 		color: #333;
 		height: 21px;
+		font-size: 16px;
 		margin: 0 10px 15px;
 	}	
 	.many .text .xm ul li .img{
@@ -829,4 +858,54 @@ img{
 		width: 216px;
 		height: 154px;
 	}
+	.many .xm ul .left,.many .xm ul .right{
+		width:25px;
+		height: 50px;
+		position: absolute;
+		top: 50%;
+		margin-top: -25px;
+		background:#D9D9D9;
+		color: #fff; 
+		text-align: center;
+		overflow: hidden;
+		display: none;
+	}
+	.many .xm ul:hover .left,.many .xm ul:hover .right{
+		display: block;
+	}
+	.many .xm ul .left:hover,.many .xm ul .right:hover{
+		background: #8D8D8D;
 
+	}
+	.many .xm ul .left .iconfont,.many .xm ul .right .iconfont{
+		font-size: 20px;
+		line-height: 50px;
+		color: #fff;
+	}
+	.many .xm ul .right{
+		right: 0;
+	}
+	.many .xm ul .dian{
+		width: 100%;
+		text-align: center;
+		height: 30px;
+		position: absolute;
+		bottom: 15px;
+		left: 0;
+
+	}
+	.many .xm ul .dian .dd{
+		width: 10px;
+		height: 10px;
+		display: inline-block;
+		margin: 0 2px;
+		border: 2px solid #f5f5f5;
+		background: #b0b0b0;
+		border-radius: 50%;
+		transition: all 0.5s;
+		line-height: 30px;
+	}
+	.many .xm ul .dian .dot{
+		border: 2px solid #ff6700;
+		background: transparent;
+	}
