@@ -15,30 +15,6 @@ window.onload=function(){
 		}
 	})
 
-// 封装轮播
-	// let k=0;
-	// function kk(a,b){
-	// 	if(a instanceof NodeList){
-	// 		k++;
-	// 		if(k>=a.length){k=0;}
-	// 		a.forEach(function(val){
-	// 			val.classList.remove(b);
-	// 		})
-	// 		a[k].classList.add(b);
-	// 	}
-	// 	return function(){kk(a,b);}
-	// }
-	// function dianji(a,b){
-	// 	if(a instanceof NodeList){
-	// 		k--;
-	// 		if(k<0){k=a.length-1;}
-	// 		a.forEach(function(val){
-	// 			val.classList.remove(b);
-	// 		})
-	// 		a[k].classList.add(b);
-	// 	}
-	// }
-//结束
 // banner
 	let n=0;
 	let banner=document.querySelectorAll('.banner_top .list');
@@ -122,56 +98,111 @@ window.onload=function(){
 
 // 图书
 	let box_b=document.querySelectorAll('.box .t1');
+	// function fz(box_b){
+	// 	let tushu=box_b.querySelectorAll('.xm ul li');
+	// 	let left_1=box_b.querySelector('.xm ul .left');
+	// 	let right_1=box_b.querySelector('.xm ul .right');
+	// 	let dian=box_b.querySelectorAll('.many .dian .dd');
+	// 	let dn=0;
+	// 	function move2(){
+	// 		dn++;
+	// 		if(dn>=tushu.length){dn=0;}
+	// 		tushu.forEach(function(val,index){
+	// 			val.classList.remove('appear');
+	// 			dian[index].classList.remove('dot');
+	// 		})
+	// 		tushu[dn].classList.add('appear');
+	// 		dian[dn].classList.add('dot');
+	// 	}
+	// 	let dt=setInterval(move2,2000);
+	// 	banner_t.onmouseover=function(){
+	// 		clearInterval(dt);
+	// 	}
+	// 	banner_t.onmouseout=function(){
+	// 		dt=setInterval(move2,2000);
+	// 	}
+	// 	right_1.onclick=function(){
+	// 		move2();
+	// 	}
+	// 	left_1.onclick=function(){
+	// 		dn--;
+	// 		if(dn<0){dn=tushu.length-1;}
+	// 		tushu.forEach(function(val){
+	// 			val.classList.remove('appear');
+	// 		})
+	// 		tushu[dn].classList.add('appear');
+	// 	}
+	// 	dian.forEach(function(value,index){
+	// 		value.onclick=function(){
+	// 			dian.forEach(function(a,b){
+	// 				a.classList.remove('dot');
+	// 				tushu[b].classList.remove('appear');
+	// 			})
+	// 			this.classList.add('dot');
+	// 			tushu[index].classList.add('appear');
+	// 			dn=index;
+	// 		}
+	// 	})
+	// }
 	function fz(box_b){
-		let tushu=box_b.querySelectorAll('.xm ul li');
-		let left_1=box_b.querySelector('.xm ul .left');
-		let right_1=box_b.querySelector('.xm ul .right');
-		let dian=box_b.querySelectorAll('.many .dian .dd');
-
-
-		let dn=0;
-		function move2(){
-			dn++;
-		
-
-			if(dn>=tushu.length){dn=0;}
-			tushu.forEach(function(val,index){
-				val.classList.remove('appear');
-				dian[index].classList.remove('dot');
-
-			})
-			tushu[dn].classList.add('appear');
-			dian[dn].classList.add('dot');
+		let tushu=box_b.querySelectorAll('.xm ul li');//img
+		let left=box_b.querySelector('.xm ul .left');
+		let right=box_b.querySelector('.xm ul .right');
+		let dian=box_b.querySelectorAll('.many .dian .dd');//点
+		let now=0;
+		let next=0;
+		let width=parseInt(getComputedStyle(box_b,null).width);
+		function move(){
+			next=now+1;
+			if(next>=tushu.length){next=0;}
+			tushu[next].style.left="100%";
+			animate(tushu[now],{left:-width},1000);
+			animate(tushu[next],{left:0}, 1000);
+			dian[now].classList.remove('dot');
+			dian[next].classList.add('dot');
+			now=next;
 		}
-		let dt=setInterval(move2,2000);
-		banner_t.onmouseover=function(){
-			clearInterval(dt);
+		// let t=setInterval(move,2000);
+		// box_b.onmouseenter=function(){
+		// 	clearInterval(t);
+		// }
+		// box_b.onmouseleave=function(){
+		// 	t=setInterval(move,2000);
+		// }
+		right.onclick=function(){
+			move();
 		}
-		banner_t.onmouseout=function(){
-			dt=setInterval(move2,2000);
+		left.onclick=function(){
+			next=now-1;
+			if(next<0){next=tushu.length-1;}
+			tushu[next].style.left="-100%";
+			animate(tushu[now],{left:width},1000);
+			animate(tushu[next],{left:0}, 1000);
+			dian[now].classList.remove('dot');
+			dian[next].classList.add('dot');
+			now=next;
 		}
-		right_1.onclick=function(){
-			move2();
-		}
-		left_1.onclick=function(){
-			dn--;
-			if(dn<0){dn=tushu.length-1;}
-			tushu.forEach(function(val){
-				val.classList.remove('appear');
-			})
-			tushu[dn].classList.add('appear');
-		}
-		dian.forEach(function(value,index){
-			value.onclick=function(){
-				dian.forEach(function(a,b){
-					a.classList.remove('dot');
-					tushu[b].classList.remove('appear');
-				})
-				this.classList.add('dot');
-				tushu[index].classList.add('appear');
-				dn=index;
+		for(let i=0;i<dian.length;i++){
+			dian[i].onclick=function(){
+				if(i>now){
+					next=i;
+					tushu[next].style.left="100%";
+					animate(tushu[now],{left:-width},1000);
+					animate(tushu[next],{left:0}, 1000);
+					dian[now].classList.remove('dot');
+					dian[next].classList.add('dot');
+					now=next;
+				}else if(i<now){
+					next=i;
+					tushu[next].style.left="-100%";
+					animate(tushu[now],{left:width},1000);
+					animate(tushu[next],{left:0}, 1000);
+					dian[now].classList.remove('dot');
+					dian[next].classList.add('dot');
+					now=next;
+				}
 			}
-		})
+		}
 	}
 	box_b.forEach(function(val,index){
 		fz(val);
