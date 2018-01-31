@@ -4,7 +4,7 @@ window.onload=function(){
 	let right =document.querySelectorAll('.xia ul.right');
 	// console.dir(right.length);
 	list.forEach(function(value,index){
-		value.onclick=function(){
+		value.onmouseover=function(){
 			console.log(1);
 			list.forEach(function(a,b){
 				a.classList.remove('active');
@@ -65,35 +65,55 @@ window.onload=function(){
 	
 //单品banner
 	let box=document.querySelectorAll('.dan_bd .box1');
+	let boxx=document.querySelector('.recommend .box1');
 	let b=document.querySelector('.dan .container');
-	let a=document.querySelector('.more .a');
+	let a=document.querySelectorAll('.more a');
+	let z=document.querySelector('.more .a');
 	let c=document.querySelector('.more .b');
-	let i=0;
+	let box_big=document.querySelector('.dan_bd');
+	let now1=0;
+	let next1=0;
+	let w=parseInt(getComputedStyle(box_big,null).width);
 	function dong(){
-		i++;
-		if(i>=box.length){i=0;}
-		box.forEach(function(val){
-			val.classList.remove('xian');
-		})
-		box[i].classList.add('xian');
+		next1=now1+1;
+		if(next1>=box.length-1){next1=0}
+		box[next1].style.left="100%";
+		animate(box[now1],{left:-w}, 1000);
+		animate(box[next1],{left:0}, 1000,function(){}); 
+		a[now1].classList.remove('active');
+		a[next1].classList.add('active');
+		now1=next1;
+		// flagv=true;
 	}
-	let m=setInterval(dong,2000);
+	// boxx.style.left=0;
+	let m=setInterval(dong,3000);
 	b.onmouseover=function(){
 		clearInterval(m);
 	}
 	b.onmouseout=function(){
 		m=setInterval(dong,2000);
 	}
+	let flagd=true;
+	let flagv=true;
+
 	c.onclick=function(){
+		if(!flagd){return;}
+		
+		flagd=false;
 		dong();
+		flagv=true;
 	}
-	a.onclick=function(){
-		i--;
-		if(i<0){i=box.length-1;}
-		box.forEach(function(val){
-			val.classList.remove('xian');
-		})
-		box[i].classList.add('xian');
+	z.onclick=function(){
+		if(!flagv){return;}
+		flagv=false;
+		next1=now1-1;
+		if(next1<0){next1=box.length-2}
+		box[next1].style.left="-100%";
+		animate(box[now1],{left:w}, 1000);
+		animate(box[next1],{left:0}, 1000);
+		a[now1].classList.remove('active');
+		a[next1].classList.add('active');
+		now1=next1;
 	}
 
 // 图书
@@ -209,8 +229,27 @@ window.onload=function(){
 	})
 	
 	
-
-	
+// header
+	let nav=document.querySelector('nav .nav');
+	let navmenu=document.querySelector('nav .navmenu');
+	nav.onmouseover=function(){
+		animate(navmenu,{height:229,overflow:"none"},400)
+	}
+	nav.onmouseout=function(){
+		animate(navmenu,{height:0,overflow:"hidden"},400)
+	}
+	let ho=document.querySelectorAll('nav .ho');
+	let first=document.querySelectorAll('.navmenu .first');
+ 	ho.forEach(function(value,index){
+ 		value.onmouseover=function(){
+ 			first.forEach(function(v,i){
+ 				v.classList.remove('active');
+ 			})
+ 			value.style.color="#ff6700";
+ 			first[index].classList.add('active');
+ 		}
+ 		
+ 	})
 	
 
 
