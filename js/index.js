@@ -1,19 +1,26 @@
 window.onload=function(){
 // 选项卡
-	let list=document.querySelectorAll('.list li');
-	let right =document.querySelectorAll('.xia ul.right');
-	// console.dir(right.length);
-	list.forEach(function(value,index){
-		value.onmouseover=function(){
-			console.log(1);
-			list.forEach(function(a,b){
-				a.classList.remove('active');
-				right[b].classList.remove('active');
-			})
-			this.classList.add('active');
-			right[index].classList.add('active');
-		}
+	let home=document.querySelectorAll('.home');
+	console.log(home);
+	function xxk(home){
+		let list=home.querySelectorAll('.list li');
+		let right =home.querySelectorAll('.xia ul.right');
+		list.forEach(function(value,index){
+			value.onmouseover=function(){
+				list.forEach(function(a,b){
+					a.classList.remove('active');
+					right[b].classList.remove('active');
+				})
+
+				this.classList.add('active');
+				right[index].classList.add('active');
+			}
+		})
+	}
+	home.forEach(function(value,index){
+		xxk(value);
 	})
+	
 
 // banner
 	let n=0;
@@ -22,15 +29,21 @@ window.onload=function(){
 	let left=document.querySelector('.banner_top .left');
 	let right1=document.querySelector('.banner_top .right');
 	let d=document.querySelectorAll('.banner_top .dian .d');
+	let flag_b=true;
 	function move(){
+		if(!flag_b){return;}
+		flag_b=false;
 		n++;
 		if(n>=banner.length){n=0;}
 		banner.forEach(function(val,index){
-			val.classList.remove('move');
+			animate(val,{opacity:0}, 2000);
 			d[index].classList.remove('active');
 		})
-		banner[n].classList.add('move');
+		animate(banner[n],{opacity:1}, 2000,function (){
+				flag_b=true;
+			});
 		d[n].classList.add('active');
+	
 	}
 	let t=setInterval(move,2000);
 	banner_t.onmouseover=function(){
@@ -43,21 +56,31 @@ window.onload=function(){
 		move();
 	}
 	left.onclick=function(){
+		if(!flag_b){return;}
+		flag_b=false;
 		n--;
 		if(n<0){n=banner.length-1;}
 		banner.forEach(function(val){
-			val.classList.remove('move');
+			animate(val,{opacity:0}, 2000);
 		})
-		banner[n].classList.add('move');
+		animate(banner[n],{opacity:1}, 2000,function (){
+				flag_b=true;
+			});
+		
 	}
 	d.forEach(function(value,index){
 		value.onclick=function(){
+			if(!flag_b){return;}
+			flag_b=false;
 			d.forEach(function(a,b){
 				a.classList.remove('active');
-				banner[b].classList.remove('move');
+				animate(banner[b],{opacity:0}, 2000);
+				// banner[b].classList.remove('move');
 			})
 			this.classList.add('active');
-			banner[index].classList.add('move');
+			animate(banner[index],{opacity:1}, 2000,function (){
+				flag_b=true;
+			});
 			n=index;
 		}
 	})
@@ -83,7 +106,6 @@ window.onload=function(){
 		a[now1].classList.remove('active');
 		a[next1].classList.add('active');
 		now1=next1;
-		// flagv=true;
 	}
 	// boxx.style.left=0;
 	let m=setInterval(dong,3000);
@@ -118,52 +140,6 @@ window.onload=function(){
 
 // 图书
 	let box_b=document.querySelectorAll('.box .t1');
-	// function fz(box_b){
-	// 	let tushu=box_b.querySelectorAll('.xm ul li');
-	// 	let left_1=box_b.querySelector('.xm ul .left');
-	// 	let right_1=box_b.querySelector('.xm ul .right');
-	// 	let dian=box_b.querySelectorAll('.many .dian .dd');
-	// 	let dn=0;
-	// 	function move2(){
-	// 		dn++;
-	// 		if(dn>=tushu.length){dn=0;}
-	// 		tushu.forEach(function(val,index){
-	// 			val.classList.remove('appear');
-	// 			dian[index].classList.remove('dot');
-	// 		})
-	// 		tushu[dn].classList.add('appear');
-	// 		dian[dn].classList.add('dot');
-	// 	}
-	// 	let dt=setInterval(move2,2000);
-	// 	banner_t.onmouseover=function(){
-	// 		clearInterval(dt);
-	// 	}
-	// 	banner_t.onmouseout=function(){
-	// 		dt=setInterval(move2,2000);
-	// 	}
-	// 	right_1.onclick=function(){
-	// 		move2();
-	// 	}
-	// 	left_1.onclick=function(){
-	// 		dn--;
-	// 		if(dn<0){dn=tushu.length-1;}
-	// 		tushu.forEach(function(val){
-	// 			val.classList.remove('appear');
-	// 		})
-	// 		tushu[dn].classList.add('appear');
-	// 	}
-	// 	dian.forEach(function(value,index){
-	// 		value.onclick=function(){
-	// 			dian.forEach(function(a,b){
-	// 				a.classList.remove('dot');
-	// 				tushu[b].classList.remove('appear');
-	// 			})
-	// 			this.classList.add('dot');
-	// 			tushu[index].classList.add('appear');
-	// 			dn=index;
-	// 		}
-	// 	})
-	// }
 	function fz(box_b){
 		let tushu=box_b.querySelectorAll('.xm ul li');//img
 		let left=box_b.querySelector('.xm ul .left');
@@ -230,15 +206,24 @@ window.onload=function(){
 	
 	
 // header
-	let nav=document.querySelector('nav .nav');
+	 let nav=document.querySelector('nav .nav');
 	let navmenu=document.querySelector('nav .navmenu');
 	nav.onmouseover=function(){
-		animate(navmenu,{height:229,overflow:"none"},400)
+		animate(navmenu,{height:229,overflow:"none"},200)
 	}
 	nav.onmouseout=function(){
-		animate(navmenu,{height:0,overflow:"hidden"},400)
+		animate(navmenu,{height:0,overflow:"hidden"},200)
 	}
 	let ho=document.querySelectorAll('nav .ho');
+	ho[5].onmousemove=function(){
+		animate(navmenu,{height:0,overflow:"hidden"},200)
+	}
+	ho[8].onmousemove=function(){
+		animate(navmenu,{height:0,overflow:"hidden"},200)
+	}
+	ho[9].onmousemove=function(){
+		animate(navmenu,{height:0,overflow:"hidden"},200)
+	}
 	let first=document.querySelectorAll('.navmenu .first');
  	ho.forEach(function(value,index){
  		value.onmouseover=function(){
